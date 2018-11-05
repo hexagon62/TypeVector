@@ -30,6 +30,11 @@ public:
     static constexpr bool value = sizeof...(Ts) == 0;
   };
 
+  struct size
+  {
+    static constexpr size_t value = sizeof...(Ts);
+  };
+
   template<size_t I>
   struct at
   {
@@ -50,5 +55,16 @@ public:
     static_assert(empty::value, "Tried to access element in empty TypeVector.");
 
     using type = typename atImpl<0, sizeof...(Ts), Ts...>::type;
+  };
+
+  struct clear
+  {
+    using type = TypeVector<>;
+  };
+
+  template<typename T>
+  struct push_back
+  {
+    using type = TypeVector<Ts..., T>;
   };
 };
